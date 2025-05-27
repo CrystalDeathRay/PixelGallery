@@ -1,0 +1,368 @@
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Window
+import QtQuick.Layouts
+
+ApplicationWindow  {
+    id: appwin
+    width: 400
+    height: 700
+    //maximumHeight: height
+    //maximumWidth: width
+    minimumHeight: 700
+    minimumWidth: 400
+    visible: true
+    title: qsTr("PixelGallery")
+
+    StackView{
+        id: stackView
+        anchors.fill: parent
+        initialItem: home
+    }
+
+    Page { // don't touch
+        id: home
+        anchors.fill: parent
+        Image {
+            source: "images/logo.png" // logo herogo
+            width: 300
+            height: 300
+            fillMode: Image.PreserveAspectFit
+            anchors.centerIn: parent
+        }
+        Button {
+            id: go
+            width: 100
+            height: 50
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 120
+            //anchors.margins: 30
+            Text {
+                id: gotext
+                text: "tap to start"
+                color: "gray"
+                anchors.centerIn: parent
+                font.pixelSize: 20
+            }
+            background: Rectangle {
+                id: gocolor
+                color: "transparent"
+
+                anchors.centerIn: parent
+            }
+            MouseArea {
+                hoverEnabled: true
+                anchors.fill: parent
+                height: parent.height
+                onEntered: gotext.color="DarkTurquoise"  // CHANGE COLORS
+                onExited: gotext.color="gray"
+                onClicked: {
+                    stackView.push(menu)
+                    console.log("Button clicked")
+                }
+            }
+        }
+
+    }
+
+    Page { // design
+        id: menu
+        anchors.fill: parent
+        visible: false
+        Text {
+            id: menuname
+            anchors.left: parent.left
+            anchors.top: parent.top
+            anchors.leftMargin: 50
+            anchors.topMargin: 20
+            text: "Menu"
+            color: "gray"
+
+            font.pixelSize: 25
+        }
+
+        Button {
+            id: gall
+            width: 50
+            height: 20
+            anchors.left: menuname.left
+            anchors.top: menuname.bottom
+            //anchors.horizontalCenter: parent.horizontalCenter
+            //anchors.bottom: parent.bottom
+            anchors.leftMargin: 10
+            anchors.topMargin: 30
+            anchors.bottomMargin: 30
+            //anchors.margins: 10
+            Text {
+                id: galltext
+                text: "Gallery"
+                color: "gray"
+                anchors.centerIn: parent
+                font.pixelSize: 20
+            }
+            background: Rectangle {
+                id: gallcolor
+                color: "transparent"
+                anchors.centerIn: parent
+            }
+            MouseArea {
+                hoverEnabled: true
+                anchors.fill: parent
+                height: parent.height
+                onEntered: galltext.color="DarkTurquoise"  // CHANGE COLORS
+                onExited: galltext.color="gray"
+                onClicked: {
+                    stackView.push(gallery)
+                    console.log("Button clicked")
+                }
+            }
+        }
+
+        Button {
+            id: bscard
+            width: 50
+            height: 20
+            anchors.left: menuname.left
+            anchors.top: gall.bottom
+            //anchors.horizontalCenter: parent.horizontalCenter
+            //anchors.bottom: parent.bottom
+            anchors.leftMargin: 25
+            anchors.topMargin: 20
+            anchors.bottomMargin: 10
+            //anchors.margins: 10
+            Text {
+                id: bscardtext
+                text: "About me"
+                color: "gray"
+                anchors.centerIn: parent
+                font.pixelSize: 20
+            }
+            background: Rectangle {
+                id: bscardcolor
+                color: "transparent"
+
+                anchors.centerIn: parent
+            }
+            MouseArea {
+                hoverEnabled: true
+                anchors.fill: parent
+                height: parent.height
+                onEntered: bscardtext.color="DarkTurquoise"  // CHANGE COLORS
+                onExited: bscardtext.color="gray"
+                onClicked: {
+                    stackView.push(busycard)
+                    console.log("Button clicked")
+                }
+            }
+        }
+        Image {
+            id: logo2
+            source: "images/logo2.png"
+            width: 100
+            //height: 250
+            fillMode: Image.PreserveAspectFit
+            anchors.bottom: parent.bottom
+            anchors.right: parent.right
+            anchors.bottomMargin: 20
+            anchors.rightMargin: 20
+            //anchors.horizontalCenter: parent.horizontalCenter
+            anchors.topMargin: 70
+        }
+    }
+
+    Page { // swipe view gallery
+        id: gallery
+        anchors.fill: parent
+        visible: false
+
+        Button { // надо замутить дЕсИгН
+            id: back1
+            width: 50
+            height: 20
+            anchors.left: parent.left
+            anchors.top: parent.top
+            //anchors.topMargin: 10
+            anchors.margins: 20
+            Text {
+                id: back1text
+                text: "menu" // change to icon и тааааак сойдеееееет
+                color: "gray"
+                anchors.centerIn: parent
+                font.pixelSize: 20
+            }
+            background: Rectangle {
+                id: back1color
+                color: "transparent"
+                anchors.centerIn: parent
+            }
+            MouseArea {
+                hoverEnabled: true
+                anchors.fill: parent
+                height: parent.height
+                onEntered: back1text.color="DarkTurquoise"  // CHANGE COLORS
+                onExited: back1text.color="gray"
+                onClicked: {
+                    stackView.pop(menu)
+                    console.log("Button clicked")
+                }
+            }
+        }
+        Rectangle {
+            id: swgallery
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.topMargin: 40
+            anchors.bottomMargin: 20
+            anchors.fill: parent
+
+            SwipeView {
+                id: sw
+                currentIndex: 1
+                anchors.fill: parent
+                interactive: SwipeView.forceElasticity
+                Image {
+                    source: "gallery/20230602_194048.jpg"
+                    fillMode: Image.PreserveAspectFit
+                }
+                Image {
+                    source: "gallery/20230808_192734.jpg"
+                    fillMode: Image.PreserveAspectFit
+                }
+                Image {
+                    source: "gallery/20230808_193124.jpg"
+                    fillMode: Image.PreserveAspectFit
+                }
+                Image {
+                    source: "gallery/20240705_182159.jpg"
+                    fillMode: Image.PreserveAspectFit
+                }
+                Image {
+                    source: "gallery/20250303_180513.jpg"
+                    fillMode: Image.PreserveAspectFit
+                }
+                Image {
+                    source: "gallery/20250227_173314.jpg"
+                    fillMode: Image.PreserveAspectFit
+                }
+                Image {
+                    source: "gallery/20250410_174732.png"
+                    fillMode: Image.PreserveAspectFit
+                }
+                Image {
+                    source: "gallery/20250227_173921.jpg"
+                    fillMode: Image.PreserveAspectFit
+                }
+                Image {
+                    source: "gallery/20250410_174910.png"
+                    fillMode: Image.PreserveAspectFit
+                }
+                Image {
+                    source: "gallery/IMG_8907.jpg"
+                    fillMode: Image.PreserveAspectFit
+                }
+            }
+            PageIndicator {
+                id: indicator
+                count: sw.count
+                currentIndex: sw.currentIndex
+                anchors.bottom: sw.bottom
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
+        }
+    }
+
+    Page { // done???
+        id: busycard
+        anchors.fill: parent
+        visible: false
+
+        Button { // надо замутить дЕсИгН
+            id: back3
+            width: 50
+            height: 20
+            anchors.left: parent.left
+            anchors.top: parent.top
+            //anchors.topMargin: 10
+            anchors.margins: 20
+            Text {
+                id: backtext
+                text: "menu" // change to icon и тааааак сойдеееееет
+                color: "gray"
+                anchors.centerIn: parent
+                font.pixelSize: 20
+            }
+            background: Rectangle {
+                id: backcolor
+                color: "transparent"
+                anchors.centerIn: parent
+            }
+            MouseArea {
+                hoverEnabled: true
+                anchors.fill: parent
+                height: parent.height
+                onEntered: backtext.color="DarkTurquoise"  // CHANGE COLORS
+                onExited: backtext.color="gray"
+                onClicked: {
+                    stackView.pop(menu)
+                    console.log("Button clicked")
+                }
+            }
+        }
+
+        Image {
+            id: face
+            source: "images/photo1.png"
+            width: 250
+            height: 250
+            fillMode: Image.PreserveAspectFit
+            anchors.top: parent.top
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.topMargin: 70
+        }
+
+        Text {
+            id: namelastname
+            anchors.top: face.bottom
+            anchors.horizontalCenter: face.horizontalCenter
+            anchors.topMargin: 20
+            text: "Anna Prelovskaya"
+            font.family: "Helvetica"
+            font.pointSize: 20
+            color: "black"
+        }
+        Text {
+            id: email
+            anchors.top: namelastname.bottom
+            anchors.horizontalCenter: namelastname.horizontalCenter
+            anchors.topMargin: 20
+            text: "prelovsk@gmail.com"
+            font.family: "Helvetica"
+            font.pointSize: 15
+            color: "black"
+        }
+        Text {
+            id: phone
+            anchors.top: email.bottom
+            anchors.horizontalCenter: email.horizontalCenter
+            anchors.topMargin: 10
+            text: "+79148752826"
+            font.family: "Helvetica"
+            font.pointSize: 15
+            color: "black"
+        }
+        Image {
+            id: qr
+            source: "images/qrtelegr.jpg"
+            width: 150
+            height: 150
+            fillMode: Image.PreserveAspectFit
+            anchors.top: phone.bottom
+            anchors.horizontalCenter: phone.horizontalCenter
+            anchors.topMargin: 30
+        }
+
+    }
+
+
+}

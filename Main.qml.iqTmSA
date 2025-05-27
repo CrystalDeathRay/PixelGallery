@@ -1,0 +1,167 @@
+import QtQuick
+import QtQuick.Controls
+import QtQuick.Window
+import QtQuick.Layouts
+
+ApplicationWindow  {
+    id: appwin
+    width: 400
+    height: 700
+    visible: true
+    title: qsTr("PixelGallery")
+
+    StackView{
+        id: stackView
+        anchors.fill: parent
+        initialItem: home
+    }
+
+    Page { // don't touch
+        id: home
+        anchors.fill: parent
+        Image {
+            source: "45678534.png" // logo herogo
+            width: 300
+            height: 300
+            fillMode: Image.PreserveAspectFit
+            anchors.centerIn: parent
+        }
+        Button {
+            id: go
+            width: 100
+            height: 50
+            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.bottom: parent.bottom
+            anchors.bottomMargin: 120
+            //anchors.margins: 30
+            Text {
+                id: gotext
+                text: "начать" // change to icon????? or name it properly
+                color: "gray"
+                anchors.centerIn: parent
+                font.pixelSize: 15
+            }
+            background: Rectangle {
+                id: gocolor
+                color: "transparent"
+
+                anchors.centerIn: parent
+            }
+            MouseArea {
+                hoverEnabled: true
+                anchors.fill: parent
+                height: parent.height
+                onEntered: gotext.color="DarkTurquoise"  // CHANGE COLORS
+                onExited: gotext.color="gray"
+                onClicked: {
+                    stackView.push(menu)
+                    console.log("Button clicked")
+                }
+            }
+        }
+
+    }
+    Page { // add buttons: gallery, busyness card
+        id: menu
+        anchors.fill: parent
+        visible: false
+        /*Rectangle {
+            id:content
+            color: "transparent"
+            anchors.fill: parent
+            //anchors.margins:5
+            Text{
+                id: contenttxt
+                text:"Content"
+                color: "black"
+                anchors.centerIn: content
+                font.pixelSize: 24
+            }
+        }*/
+        Button {
+            id: bscard
+            width: 50
+            height: 50
+            //anchors.horizontalCenter: parent.horizontalCenter
+            //anchors.bottom: parent.bottom
+            //anchors.bottomMargin: 120
+            //anchors.margins: 30
+            Text {
+                id: bscardtext
+                text: "визитка"
+                color: "gray"
+                anchors.centerIn: parent
+                font.pixelSize: 15
+            }
+            background: Rectangle {
+                id: bscardcolor
+                color: "transparent"
+
+                anchors.centerIn: parent
+            }
+            MouseArea {
+                hoverEnabled: true
+                anchors.fill: parent
+                height: parent.height
+                onEntered: gotext.color="DarkTurquoise"  // CHANGE COLORS
+                onExited: gotext.color="gray"
+                onClicked: {
+                    stackView.push(busycard)
+                    console.log("Button clicked")
+                }
+            }
+        }
+    }
+
+    Page { //  name hueme, qr code for telega tipa modno stilno molodezgno *sounds of falling sand* button BACK to menu
+        id: busycard
+        anchors.fill: parent
+        visible: false
+
+        Button { // надо замутить дЕсИгН
+            id: back3
+            width: 50
+            height: 50
+            anchors.left: parent.left
+            anchors.top: parent.top
+            //anchors.topMargin: 10
+            anchors.margins: 10
+            Text {
+                id: backtext
+                text: "back" // change to icon
+                color: "gray"
+                anchors.centerIn: parent
+                font.pixelSize: 15
+            }
+            background: Rectangle {
+                id: backcolor
+                color: "transparent"
+
+                anchors.centerIn: parent
+            }
+            MouseArea {
+                hoverEnabled: true
+                anchors.fill: parent
+                height: parent.height
+                onEntered: gotext.color="DarkTurquoise"  // CHANGE COLORS
+                onExited: gotext.color="gray"
+                onClicked: {
+                    stackView.pop(menu)
+                    console.log("Button clicked")
+                }
+            }
+        }
+
+        Image {
+            source: "images/photo1.png"
+            width: 250
+            height: 250
+            fillMode: Image.PreserveAspectFit
+            anchors.top: busycard.top
+            anchors.horizontalCenter: busycard.horizontalCenter
+            anchors.topMargin: 30
+        }
+    }
+
+
+}
