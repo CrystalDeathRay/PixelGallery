@@ -1,0 +1,5 @@
+module pixelgallery
+typeinfo apppixelgallery.qmltypes
+prefer :/pixelgallery/
+Main 1.0 Main.qml
+
